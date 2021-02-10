@@ -4,3 +4,122 @@ body {
 	height: 100%;
 	margin: 0;
 }
+
+canvas {
+	background-color: #b6b6b6;
+}
+
+#context-menu {
+	position: fixed;
+	width: 150px;
+	height: 200px;
+	background-color: white;
+	border-radius: 5px;
+	box-sizing: border-box;
+	box-shadow: 2px 2px 5px 0 rgb(0 0 0 / 20%);
+}
+
+#context-menu ul {
+	list-style: none;
+	padding-left: 10px;
+	text-align: left;
+	padding-top: 10px;
+	padding-left: 0;
+	margin-top: 0;
+}
+
+#context-menu ul li {
+	padding: 5px 10px;
+	padding-right: 0;
+}
+
+#context-menu ul li:hover {
+	background-color: #d1cdcd;
+	cursor: pointer;
+}
+
+#modal-wrapper {
+	position: fixed;
+    top: 35%;
+    left: 30%;
+}
+
+#modal-wrapper #input-modal-wrapper {
+	background-color: white;
+	border-radius: 10px;
+	width: 600px;
+	height: 250px;
+	box-sizing: border-box;
+	box-shadow: 2px 2px 5px 0 rgb(0 0 0 / 20%);
+	padding: 45px 0;
+}
+
+#modal-wrapper #input-modal-wrapper .message-wrapper {
+	padding: 0 2%;
+	padding-bottom: 20px;
+}
+
+#modal-wrapper
+	#input-modal-wrapper
+	.message-wrapper
+	#input-modal-message-label {
+	font-size: 1.2em;
+	text-align: center;
+	color: #333232;
+}
+
+#modal-wrapper #input-modal-wrapper .input-wrapper #input-modal-input {
+	width: 95%;
+	height: 30px;
+	margin-top: 20px;
+	margin-left: 2%;
+	border: 1px solid #8080808f;
+}
+
+#modal-wrapper #input-modal-wrapper .action-btns-wrapper {
+	position: absolute;
+	bottom: 20px;
+	right: 10px;
+}
+
+
+.btn {
+	color: white;
+	border: 0;
+	padding: 5px 10px;
+	width: 100px;
+	width: 100px;
+} 
+
+.btn-info {
+	background-color: #1b6dff;
+}
+
+.btn-danger {
+	background-color: #e40000;
+}
+
+.modal-close-btn {
+	float: right;
+	border-top-right-radius: 10px;
+	border-bottom-left-radius: 5px;
+	border-bottom: 1px solid #bbb8b8;
+	border-left: 1px solid #bbb8b8;
+	padding: 5px 10px;
+}
+
+.modal-close-btn:hover {
+	cursor: pointer;
+	background-color: red;
+	border-color: white;
+}
+.modal-close-btn a::before {
+	content: "x";
+	color: #00000059;
+	font-weight: 300;
+	font-family: Arial, sans-serif;
+}
+
+.modal-close-btn:hover a::before {
+	color: white;
+}

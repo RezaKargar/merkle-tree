@@ -1,18 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <title>Merkle Tree</title>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+		<title>Merkle Tree</title>
 
-    <link rel="stylesheet" type="text/css" href="styles/style.css"></link>
-</head>
-<body>
-    <script src="js/utilities.js"></script>
-    <script src="js/tree/leaf.js"></script>
-    <script src="js/tree/node.js"></script>
-    <script src="js/tree/merkle-tree.js"></script>
-    <script src="js/main.js"></script>
-</body>
+		<link rel="stylesheet" type="text/css" href="styles/style.css" />
+	</head>
+	<body>
+		<div id="context-menu" hidden>
+			<ul></ul>
+		</div>
+
+		<div id="modal-wrapper" hidden>
+			<div class="modal-close-btn"><a></a></div>
+			<div id="input-modal-wrapper">
+				<div class="message-wrapper">
+					<label id="input-modal-message-label"
+						>Some dummy message Some dummy message Some dummy
+						message Some dummy message Some dummy message</label
+					>
+				</div>
+				<div class="input-wrapper">
+					<input type="text" id="input-modal-input" placeholder="" />
+				</div>
+				<div class="action-btns-wrapper">
+					<button class="btn btn-danger">cancel</button>
+					<button class="btn btn-info">submit</button>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/utilities.js"></script>
+
+		<script src="js/tree/leaf.js"></script>
+		<script src="js/tree/node.js"></script>
+		<script src="js/tree/merkle-tree.js"></script>
+
+		<script src="js/ui/context-menu.js"></script>
+		<script src="js/ui/modals.js"></script>
+
+		<script src="js/main.js"></script>
+	</body>
 </html>
