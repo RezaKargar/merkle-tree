@@ -1,6 +1,8 @@
 class Leaf {
-    constructor(data, parent = null) {
+    constructor(data, x = null, y = null, parent = null) {
         this.data = data;
+        this.x = x;
+        this.y = y;
         this.parent = parent;
     }
 

@@ -1,27 +1,21 @@
 class MerkleTree {
 	constructor(...leafs) {
-        let isAnyNoneLeafInLeafs = leafs.filter(leaf => !(leaf instanceof Leaf)).length > 0;
-        if(isAnyNoneLeafInLeafs)
-            throw new Error("Tree leafs all must be instances of Leaf class");
+		let isAnyNoneLeafInLeafs =
+			leafs.filter((leaf) => !(leaf instanceof Leaf)).length > 0;
+		if (isAnyNoneLeafInLeafs)
+			throw new Error("Tree leafs all must be instances of Leaf class");
 
-		this.leafs = [];
-		this.leafs.push(...leafs);
-        
-        this.buildTree().then(root => {
-            this.root = root;
-        });
+		this.leafs = [...leafs];
+
+		if (this.leafs.length > 0) this.buildTree().then();
 	}
 
-    addLeaf(leaf) {
-        if(!(leaf instanceof Leaf)){
-            throw new Error("leaf must be an instance of Leaf class");
-        }
-        this.leafs.push(leaf);
-        
-        this.buildTree().then(root => {
-            this.root = root;
-        });
-    }
+	addLeaf(leaf) {
+		if (!(leaf instanceof Leaf)) {
+			throw new Error("leaf must be an instance of Leaf class");
+		}
+		this.leafs.push(leaf);
+	}
 
 	async buildLeafNodes() {
 		let leafNodes = [];
@@ -30,54 +24,75 @@ class MerkleTree {
 			let hashOfLeafsData = await this.hash(leaf.data);
 
 			let leafNode = new Node(hashOfLeafsData);
-            leafNode.leftChild = leaf;
+			leafNode.leftChild = leaf;
 
-            leafNodes.push(leafNode);
+			leafNodes.push(leafNode);
 
-            leaf.parent = leafNode;
+			leaf.parent = leafNode;
 		}
 		return leafNodes;
 	}
 
 	async buildTree() {
-        // If leafs' count is odd, dupplicate the last leaf
-		if (this.leafs.length % 2 != 0) {
-			this.leafs.push(leafs[leafs.length - 1]);
-		}
+		this.root = await this.#buildTree();
+	}
 
+	async #buildTree() {
 		let leafNodes = await this.buildLeafNodes();
-        
-        let nodesThatHasNotProcessed = [...leafNodes];
 
-        // Tree has more than one node, the only node that tree
-        // should have is the root node
-        while(nodesThatHasNotProcessed.length > 1){
+		let nodesThatHasNotProcessed = [...leafNodes];
 
-            let leftChild = nodesThatHasNotProcessed[0]
-            let rightChild = nodesThatHasNotProcessed[1]
+		if (nodesThatHasNotProcessed.length == 1)
+			return nodesThatHasNotProcessed[0];
 
-			let dataOfParentNodeThatMustBeHashed = leftChild.hash + rightChild.hash;
-			let hashOfParentNode = await this.hash(dataOfParentNodeThatMustBeHashed);
+		let aa = await this.a(nodesThatHasNotProcessed);
+
+		while (aa.length > 1) {
+			aa = await this.a(aa);
+		}
+		return aa[0];
+	}
+
+	async a(nodesThatHasNotProcessed) {
+		let result = [];
+		while (nodesThatHasNotProcessed.length > 1) {
+			let leftChild = nodesThatHasNotProcessed[0];
+			let rightChild = nodesThatHasNotProcessed[1];
+
+			let dataOfParentNodeThatMustBeHashed =
+				leftChild.hash + rightChild.hash;
+			let hashOfParentNode = await this.hash(
+				dataOfParentNodeThatMustBeHashed
+			);
 
 			let parentNode = new Node(hashOfParentNode);
 			parentNode.leftChild = leftChild;
 			parentNode.rightChild = rightChild;
 
-            leftChild.parent = parentNode;
-            rightChild.parent = parentNode;
-            
-            nodesThatHasNotProcessed.push(parentNode);
+			leftChild.parent = parentNode;
+			rightChild.parent = parentNode;
 
-            nodesThatHasNotProcessed = nodesThatHasNotProcessed.slice(2);
+			result.push(parentNode);
+
+			nodesThatHasNotProcessed = nodesThatHasNotProcessed.slice(2);
+
+			if (nodesThatHasNotProcessed.length % 2 != 0) {
+				let lastNode =
+					nodesThatHasNotProcessed[
+						nodesThatHasNotProcessed.length - 1
+					];
+				let dupplicatedNode = new Node(lastNode.hash);
+				nodesThatHasNotProcessed.push(dupplicatedNode);
+			}
 		}
 
-        return nodesThatHasNotProcessed[0];
+		return result;
 	}
 
-    async hash(data){
-        const digestHex = await digestMessage(data);
-        return digestHex;
-    }
+	async hash(data) {
+		const digestHex = await digestMessage(data);
+		return digestHex;
+	}
 
 	toString() {
 		return this.root.toString();

@@ -31,7 +31,11 @@ function hideContextMenu() {
 	contextMenuTag.setAttribute("hidden", "");
 }
 
-function addNewLeafItemInContextMenuClick(e) {
+function addNewLeafItemInContextMenuClick() {
     hideContextMenu();
-    showInputModal("Please add leaf's data");
+    showInputModal("Please add leaf's data", async (value) => {
+        let newLeaf = new Leaf(value);
+		tree.addLeaf(newLeaf);
+		await tree.buildTree();
+    });
 }
