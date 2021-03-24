@@ -17,11 +17,11 @@ class MerkleTree {
 		this.leafs.push(leaf);
 	}
 
-	async buildLeafNodes() {
+	buildLeafNodes() {
 		let leafNodes = [];
 
 		for (let leaf of this.leafs) {
-			let hashOfLeafsData = await this.hash(leaf.data);
+			let hashOfLeafsData = hashWithSHA256(leaf.data);
 
 			let leafNode = new Node(hashOfLeafsData);
 			leafNode.leftChild = leaf;
@@ -38,7 +38,7 @@ class MerkleTree {
 	}
 
 	async #buildTree() {
-		let leafNodes = await this.buildLeafNodes();
+		let leafNodes = this.buildLeafNodes();
 
 		let nodesThatHasNotProcessed = [...leafNodes];
 
@@ -61,7 +61,7 @@ class MerkleTree {
 
 			let dataOfParentNodeThatMustBeHashed =
 				leftChild.hash + rightChild.hash;
-			let hashOfParentNode = await this.hash(
+			let hashOfParentNode = hashWithSHA256(
 				dataOfParentNodeThatMustBeHashed
 			);
 
@@ -87,11 +87,6 @@ class MerkleTree {
 		}
 
 		return result;
-	}
-
-	async hash(data) {
-		const digestHex = await digestMessage(data);
-		return digestHex;
 	}
 
 	toString() {

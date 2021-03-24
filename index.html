@@ -6,9 +6,21 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 		<title>Merkle Tree</title>
 
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"
+			integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A=="
+			crossorigin="anonymous"
+		></script>
+
 		<link rel="stylesheet" type="text/css" href="styles/style.css" />
 	</head>
 	<body>
+		<div id="menuContainer">
+			<div class="menu-item" onclick="addNewLeafItemInContextMenuClick()">
+				Add new leaf
+			</div>
+		</div>
+
 		<div id="context-menu" hidden>
 			<ul></ul>
 		</div>
@@ -23,11 +35,28 @@
 					>
 				</div>
 				<div class="input-wrapper">
-					<input type="text" id="input-modal-input" placeholder="" />
-				</div>
-				<div class="action-btns-wrapper">
-					<button class="btn btn-danger">cancel</button>
-					<button class="btn btn-info">submit</button>
+					<div id="textInputWrapper">
+						<label class="input-item-label" for="input-modal-input">
+							Text data :</label
+						>
+						<input
+							type="text"
+							name="input-modal-input"
+							id="input-modal-input"
+							placeholder="Text data"
+						/>
+					</div>
+					<div id="fileInputWrapper">
+						<label class="input-item-label" for="file"
+							>File data :</label
+						>
+						<input type="file" name="file" id="file" />
+					</div>
+
+					<div class="action-btns-wrapper" id="actionBtnsWrapper">
+						<button class="btn btn-danger">cancel</button>
+						<button class="btn btn-info">submit</button>
+					</div>
 				</div>
 			</div>
 		</div>

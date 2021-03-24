@@ -40,8 +40,8 @@ canvas {
 
 #modal-wrapper {
 	position: fixed;
-    top: 35%;
-    left: 30%;
+	top: 35%;
+	left: 30%;
 }
 
 #modal-wrapper #input-modal-wrapper {
@@ -51,13 +51,11 @@ canvas {
 	height: 250px;
 	box-sizing: border-box;
 	box-shadow: 2px 2px 5px 0 rgb(0 0 0 / 20%);
-	padding: 45px 0;
+	padding: 20px 0;
+	padding-left: 2%;
+	overflow-y: hidden;
 }
 
-#modal-wrapper #input-modal-wrapper .message-wrapper {
-	padding: 0 2%;
-	padding-bottom: 20px;
-}
 
 #modal-wrapper
 	#input-modal-wrapper
@@ -71,7 +69,7 @@ canvas {
 #modal-wrapper #input-modal-wrapper .input-wrapper #input-modal-input {
 	width: 95%;
 	height: 30px;
-	margin-top: 20px;
+	margin-top: 5px;
 	margin-left: 2%;
 	border: 1px solid #8080808f;
 }
@@ -82,6 +80,11 @@ canvas {
 	right: 10px;
 }
 
+.input-item-label {
+	display: block;
+	margin-top: 10px;
+	padding: 2% 0;
+}
 
 .btn {
 	color: white;
@@ -89,7 +92,7 @@ canvas {
 	padding: 5px 10px;
 	width: 100px;
 	width: 100px;
-} 
+}
 
 .btn-info {
 	background-color: #1b6dff;
@@ -106,6 +109,8 @@ canvas {
 	border-bottom: 1px solid #bbb8b8;
 	border-left: 1px solid #bbb8b8;
 	padding: 5px 10px;
+	right: 0;
+	position: absolute;
 }
 
 .modal-close-btn:hover {
@@ -122,4 +127,27 @@ canvas {
 
 .modal-close-btn:hover a::before {
 	color: white;
+}
+
+#menuContainer {
+	display: inline-block;
+	width: 200px;
+	position: fixed;
+	right: 0;
+	top: 0;
+	padding: 10px;
+}
+
+#menuContainer .menu-item {
+	display: inline;
+	background-color:red;
+	float: right;
+	padding: 10px;
+	border-radius: 3px;
+	color: white;
+	cursor: pointer;
+}
+
+#menuContainer .menu-item:hover {
+	background-color:rgb(184, 3, 3);
 }
