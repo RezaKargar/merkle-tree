@@ -135,7 +135,7 @@ canvas {
 	position: fixed;
 	right: 0;
 	top: 0;
-	padding: 10px;
+	padding: 0 10px;
 }
 
 #menuContainer .menu-item {
@@ -146,6 +146,9 @@ canvas {
 	border-radius: 3px;
 	color: white;
 	cursor: pointer;
+	margin-bottom: 10px;
+	text-align: center;
+	width: 70%;
 }
 
 #menuContainer .menu-item:hover {
