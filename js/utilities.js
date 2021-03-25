@@ -59,3 +59,14 @@ function readFileAsync(file) {
 		reader.readAsBinaryString(file);
 	})
 }
+
+function saveLeafsToLocalStorage(tree){
+	const leafsToSave = tree.leafs.map(leaf => leaf.data);
+	localStorage.setItem('leafs', JSON.stringify(leafsToSave));
+}
+
+function loadLeafsFromLocalStorage(){
+	const loadedLeafs = JSON.parse(localStorage.getItem('leafs'));
+	const leafsToReturn = loadedLeafs.map(leafData => new Leaf(leafData));
+	return leafsToReturn;
+}

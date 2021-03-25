@@ -33,26 +33,31 @@ let previousLeavesLength;
 let tree = createAnInitialTree();
 init();
 
-function init() {
-	tree = new MerkleTree(...[]);
+async function init() {
+	const leafs = loadLeafsFromLocalStorage();
+
+	tree = await new MerkleTree(...leafs).buildTree();
+
 	render();
 }
 
 function render() {
+	if (!tree || !tree.leafs) return;
+
 	positions = [];
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 	let lengthOfLeaves = tree.leafs.length;
 
 	if (maxX >= canvas.width - 30) {
-		width *= .9;
+		width *= 0.9;
 		height = initialHeight / (lengthOfLeaves / 20);
 
 		previousLeavesLength = lengthOfLeaves;
 
 		countOfCharactersToShow = width / 10;
 	}
-	
+
 	maxX = 0;
 
 	drawTree(tree);
@@ -79,7 +84,7 @@ function drawTree(tree) {
 
 		draw(node.hash, x, y, width, height);
 
-		positions.push({X: x, Y: y, Node: node});
+		positions.push({ X: x, Y: y, Node: node });
 
 		x += width * 1.5;
 	});
@@ -94,7 +99,7 @@ function drawTree(tree) {
 		draw(leaf.data, leaf.x, leaf.y, width, height, "#ca6ef1", "white");
 		drawLineBetween2Nodes(nodeOfLeaf, leaf);
 
-		positions.push({X: leaf.x , Y: leaf.y, Node: leaf});
+		positions.push({ X: leaf.x, Y: leaf.y, Node: leaf });
 	});
 
 	nodesInLevelForm.forEach((nodesOfLevel, levelIndex) => {
@@ -122,7 +127,7 @@ function drawTree(tree) {
 			draw(node.hash, x, y, width, height);
 			drawLinesToChildren(node);
 
-			positions.push({X: x, Y: y, Node: node});
+			positions.push({ X: x, Y: y, Node: node });
 		});
 	});
 }
@@ -134,8 +139,9 @@ function draw(text, x, y, width, height, backgroundColor, foregroundColor) {
 	ctx.fillStyle = foregroundColor || "black";
 	ctx.font = "1.2em serif";
 
-	if(countOfCharactersToShow > 4){
-		if (text.length > countOfCharactersToShow) text = text.slice(0, countOfCharactersToShow - 2) + "...";
+	if (countOfCharactersToShow > 4) {
+		if (text.length > countOfCharactersToShow)
+			text = text.slice(0, countOfCharactersToShow - 2) + "...";
 		ctx.fillText(text, x + 2, y + height - height / 3);
 	}
 }

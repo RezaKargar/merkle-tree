@@ -6,8 +6,6 @@ class MerkleTree {
 			throw new Error("Tree leafs all must be instances of Leaf class");
 
 		this.leafs = [...leafs];
-
-		if (this.leafs.length > 0) this.buildTree().then();
 	}
 
 	addLeaf(leaf) {
@@ -35,6 +33,8 @@ class MerkleTree {
 
 	async buildTree() {
 		this.root = await this.#buildTree();
+		saveLeafsToLocalStorage(this);
+		return this;
 	}
 
 	async #buildTree() {
